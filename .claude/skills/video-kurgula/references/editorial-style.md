@@ -80,7 +80,9 @@ theses · 1–3 L4 animation scenes · chapter tag on every chapter, source line
 A calm channel ("sade"): ~20–25 events per 10 min, one message at a time.
 If the source does not allow reframing (1080p or a tight shot): ~25 events, 60–70 %, mostly side panels.
 
-## Vertical (Reels / Shorts)
+## Vertical (Reels / Story / TikTok / WhatsApp Durum) — DEFAULT for this user
+
+- Length: Reels/TikTok ideally 15–60 s (Reels > 3 min is not pushed to new audiences); WhatsApp Durum max 90 s per clip — longer videos get a ≤ 90 s cut.
 
 - Build it natively vertical: speaker re-cropped 9:16, recordings re-framed; never a letterboxed 16:9 over a blur.
 - One message on screen at a time; each text exits before the next enters.

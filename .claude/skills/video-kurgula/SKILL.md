@@ -1,6 +1,6 @@
 ---
 name: video-kurgula
-description: End-to-end edit of a talking-head YouTube video in this workspace, in the channel's OWN brand (marka/MARKA.md + src/theme/theme.ts) — stage layouts that reframe the presenter, word-synced boards, kinetic theses, on-screen graphics, bespoke code-written animation scenes, sound effects + the user's music, master render, QC and delivery docs. Use when the user gives a new video and says "bunu kurgula", "yeni videoyu kurgula", "kurgula", "videoyu düzenle", "yeni video geldi", "edit this video", or asks to continue/resume an edit ("devam"). Also use for revision requests on a delivered edit.
+description: End-to-end edit of a talking-head VERTICAL 9:16 video (Instagram Reels/Story, TikTok, WhatsApp Durum; YouTube only on request) in this workspace, in the channel's OWN brand (marka/MARKA.md + src/theme/theme.ts) — stage layouts that reframe the presenter, word-synced boards, kinetic theses, on-screen graphics, bespoke code-written animation scenes, sound effects + the user's music, master render, QC and delivery docs. Use when the user gives a new video and says "bunu kurgula", "yeni videoyu kurgula", "kurgula", "videoyu düzenle", "yeni video geldi", "edit this video", or asks to continue/resume an edit ("devam"). Also use for revision requests on a delivered edit.
 ---
 
 # video-kurgula — yeni videoyu kanalın kendi standardında kurgula ve teslim et
@@ -8,6 +8,20 @@ description: End-to-end edit of a talking-head YouTube video in this workspace, 
 The user drops a finished talking-head export (already cut, e.g. from CapCut/Final Cut) at `public/main.mov`, puts
 supporting assets (screenshots, screen recordings) **and the music track** into `public/assets/`, says
 **"bunu kurgula"**, and expects a **finished delivery** — graphics, full-screen scenes, sound effects, music, QC, docs.
+
+## Default format: vertical 9:16
+
+This user publishes **vertical only** (Instagram Reels + Story, TikTok, WhatsApp Durum). Unless the user explicitly
+asks for a horizontal / YouTube video:
+- Master canvas **1080×1920, 30 fps**, delivered as one **H.264 SDR Rec.709 MP4 + AAC** (HDR iPhone footage is
+  tone-mapped through the SDR branch — social apps handle HDR inconsistently).
+- Read **`references/dikey-format.md`** before planning: platform specs, the combined safe zone, the 3:4 grid cover
+  crop, the WhatsApp 90 s limit.
+- Layouts come from `references/visual-language.md` §9 (V0/V1/V3/V5), not L0–L5. No chapter tags, no YouTube chapter
+  list, no `--youtube` upload file.
+- **Code status:** `src/theme/theme.ts` and the event components are still built on a 1920×1080 canvas. On the first
+  vertical video, build the vertical composition (1080×1920) + its render/composite path as step 5b, verify it with
+  design stills, and record what was built in `work/progress.md` and `references/pipeline.md`.
 
 ## Before anything: the brand
 
@@ -53,7 +67,7 @@ Commands, durations and known traps for every step: **`references/pipeline.md`**
 4. **Asset inventory**: look at frames of every asset (contact sheets) and write `work/asset-manifest.json`
    (what it shows, where it fits, limitations, privacy notes).
 5. **Edit plan**: read `references/visual-language.md` and `references/animation-scenes.md`, then split the
-   transcript into chapters (→ chapter tags + the YouTube chapter list), choose the layout (L0–L5) of every passage,
+   transcript into beats (vertical: hook 0–1.5 s, one message per beat; horizontal only: chapters + YouTube list), choose the layout (V0–V5 vertical; L0–L5 horizontal) of every passage,
    one persistent device per chapter, the 2–4 thesis lines, and the 1–3 passages that get an animation scene. Write
    `work/edit-plan.json` following `references/editorial-style.md` (schema: `src/plan/schema.ts`, format example:
    `library/examples/edit-plan.example.json`). `npm run plan:check`.
@@ -78,10 +92,11 @@ are built). Say so up front.
 
 ## Vertical videos (Reels / Shorts)
 
-- From a finished long video: `scripts/90-shorts.mjs` (see `references/pipeline.md`).
-- A pre-cut vertical video (Reel) that only needs zooms, band graphics and SFX: build a vertical composition +
-  script on request (1080×1920, graphics in the band above the head, one block at a time).
-- Rules: `references/visual-language.md` §9 and the vertical part of `references/editorial-style.md`.
+- **This is the default path** (see "Default format: vertical 9:16" above).
+- Source is a pre-cut vertical phone video (9:16): zooms/punch-ins, band graphics, SFX, music, follow/contact card.
+- Source is horizontal: re-crop the speaker natively to 9:16 — never letterbox 16:9 over a blur.
+- From a finished long horizontal video: `scripts/90-shorts.mjs` (only if the user asks; it letterboxes).
+- Rules: `references/dikey-format.md`, `references/visual-language.md` §9, the vertical part of `references/editorial-style.md`.
 
 ## Revisions on a delivered edit
 

@@ -49,7 +49,7 @@
 ## 6. Açılış ve kapanış
 
 - **Hook tarzı:** (soru · çarpıcı rakam · üstü çizilen iddia · soğuk açılış)
-- **Abone kartı:** var / yok — avatar: `public/marka/avatar.jpg` (yüzünün olduğu kare bir fotoğraf)
+- **Takip kartı:** var / yok (dikey videoda "abone ol" yerine "takip et / DM at / ara") — avatar: `public/marka/avatar.jpg` (yüzünün olduğu kare bir fotoğraf)
 - **Kapanış kartı:** (ör. "@handle + Kanala abone olmayı unutma :)")
 - **Bölüm etiketi stili:** (ör. `● 03  KURULUM` · `Bölüm 3 — Kurulum` · yok)
 
@@ -57,7 +57,8 @@
 
 - **Onay:** onay sormadan bitir, sonra revize ederim · önce içerik kontrol listesini göster · önce planı göster
 - **Altyazı:** gömülü değil (SRT ayrı) · gömülü
-- **Format:** 4K HDR (iPhone) · 1080p SDR · dikey Reels de lazım
+- **Format:** **Dikey 9:16, 1080×1920** (Instagram Reels + Story, TikTok, WhatsApp Durum) — varsayılan. Yatay/YouTube şimdilik yok.
+- **Teslim:** tek MP4 (H.264, SDR Rec.709, 30 fps, AAC) — üç platforma aynı dosya yüklenir
 
 ## 8. Sevdiğim / sevmediğim (referanslar)
 

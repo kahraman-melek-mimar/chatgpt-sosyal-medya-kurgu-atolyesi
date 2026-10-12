@@ -96,8 +96,14 @@ Update this table whenever a piece lands.
 
 ## 9. Vertical (Reels / Shorts) — native 9:16
 
-**Canvas.** 1080×1920 design units. Safe areas: top 0–140 status bar, **graphics band ≈160–720**, speaker below;
-the bottom ~420 px and the right ~140 px are platform UI — nothing important there.
+**Canvas.** 1080×1920 design units (the DEFAULT canvas for this user). One master serves Reels, Story, TikTok and
+WhatsApp Durum, so use the **combined safe zone** (strictest of the platforms, details in `dikey-format.md`):
+- top **0–280**: username / audio label / status bar — no text, no logo
+- **graphics band ≈ 290–720**, speaker below it
+- bottom **~670 px (y > 1250)**: captions, audio track, reply bar — nothing important
+- right **~230 px** in the lower half (x > 850, y > 960): like/comment/share column
+- sides **≥ 65 px** margin everywhere
+- grid cover: the profile grid shows the middle **3:4 (y 240–1680)** — the cover title must sit inside it
 
 | ID | Vertical layout | Use |
 |---|---|---|
@@ -106,4 +112,4 @@ the bottom ~420 px and the right ~140 px are platform UI — nothing important t
 | **V3** | Full-screen board / app screen, speaker hidden | app recordings, a 2–5 s animation beat |
 | **V5** | Kinetic thesis: 2–4 big words | the hook and the one thesis |
 
-Hook in the first 1–1.5 s; closing = follow card from `MARKA.md` synced to the spoken CTA.
+Hook in the first 1–1.5 s; closing = follow / contact card from `MARKA.md` (handle + phone) synced to the spoken CTA, placed inside the safe zone.

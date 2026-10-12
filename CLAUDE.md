@@ -1,4 +1,9 @@
-# Claude Kurgu Atölyesi — konuşan-kafa YouTube videoları için kodla kurgu
+# Claude Kurgu Atölyesi — konuşan-kafa dikey sosyal medya videoları için kodla kurgu
+
+> **VARSAYILAN FORMAT: DİKEY 9:16 (1080×1920).** Kullanıcı şimdilik YouTube için değil; Instagram Reels + Story,
+> TikTok ve WhatsApp Durum için video hazırlıyor. Tek bir 1080×1920 master üç platformu da karşılar.
+> Platform ölçüleri ve güvenli alanlar: `.claude/skills/video-kurgula/references/dikey-format.md` (her işe başlamadan oku).
+> Yatay 16:9 / YouTube akışı (bölüm listesi, `--youtube` dosyası, `90-shorts`) yalnızca kullanıcı açıkça isterse.
 
 This repo is a **reusable editing workshop**: a Remotion graphics layer + FFmpeg/x265 compositing + sound design,
 driven by one data file per video (`work/edit-plan.json`). It becomes the user's own through two files:

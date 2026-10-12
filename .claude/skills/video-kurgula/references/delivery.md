@@ -2,6 +2,18 @@
 
 ## Files the user receives (`out/`)
 
+**Vertical (default for this user):**
+
+| File | What |
+|---|---|
+| `final-dikey.mp4` | 1080×1920, 30 fps, H.264 High, SDR Rec.709, AAC 48 kHz — upload this same file to Reels, TikTok and WhatsApp Durum |
+| `final-dikey.whatsapp.mp4` | only if the video is longer than 90 s: a ≤ 90 s cut for WhatsApp Durum |
+| `kapak.jpg` | 1080×1920 cover frame, title inside the 3:4 grid area (y 240–1680) |
+| `aciklama.tr.txt` | caption text + hashtags ready to paste (no YouTube chapter list) |
+| `final.tr.srt` | subtitles (not burned in unless `MARKA.md` says so) |
+
+**Horizontal / YouTube (only on request):**
+
 | File | What |
 |---|---|
 | `final-hlg.mov` | the video: graphics + music/effects mix (this is the upload) |
@@ -35,7 +47,7 @@ the deliverables (the next `05-new-project.mjs` run requires it).
    v2: the animation scenes (style + timestamps), the thesis lines, and the **YouTube bölüm listesi** (`0:00 …`,
    same titles as the chapter tags) ready to paste into the description.
 4. **Ölçümler**: frame count/duration identical, QC x/x, lag 0, null test, true peak, music vs narration.
-5. **Size kalanlar**: ears (music/effects), HDR screen, YouTube test, uncertain subtitle passages, privacy items.
+5. **Size kalanlar**: ears (music/effects), a phone check of the safe zone in each app (Reels, TikTok, WhatsApp — upload as draft/close friends first), uncertain subtitle passages, privacy items. (Horizontal only: HDR screen, YouTube test.)
 5b. **Ses tasarımı**: the synthesised cue pack (names + where they play, e.g. `riser+impact 2:14 tez`), and which
    preview clip to listen to first.
 6. **Müzik**: which supplied file was used (looped? library fallback?). ElevenLabs credits only if something was generated on request.
