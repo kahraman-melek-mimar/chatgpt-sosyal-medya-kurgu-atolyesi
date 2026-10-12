@@ -1,2 +1,2 @@
 # sosyal-medya-kurgu-atolyesi
-Social Media Cloude Production 
+Social Media Claude Production 
