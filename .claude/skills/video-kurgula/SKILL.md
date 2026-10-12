@@ -19,9 +19,11 @@ asks for a horizontal / YouTube video:
   crop, the WhatsApp 90 s limit.
 - Layouts come from `references/visual-language.md` §9 (V0/V1/V3/V5), not L0–L5. No chapter tags, no YouTube chapter
   list, no `--youtube` upload file.
-- **Code status:** `src/theme/theme.ts` and the event components are still built on a 1920×1080 canvas. On the first
-  vertical video, build the vertical composition (1080×1920) + its render/composite path as step 5b, verify it with
-  design stills, and record what was built in `work/progress.md` and `references/pipeline.md`.
+- **Real-estate listing videos use the `IlanReel` composition** (built and verified Oct 2026): speaker clips +
+  property video/photos, Coldwell Banker identity, closing card with the agent's phone. Workflow, plan fields and
+  layout rules: **`references/ilan-reel.md`**. Commands: `npm run ilan:studio | ilan:still | ilan:render`.
+- Other vertical videos (no listing): start from `IlanReel` and adapt; the old 16:9 components in `src/events/`
+  are still on a 1920×1080 canvas.
 
 ## Before anything: the brand
 

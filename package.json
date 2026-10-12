@@ -49,7 +49,10 @@
     "audio": "node scripts/lib/synth.mjs && node scripts/75-audio.mjs --mux",
     "qc:mix": "node scripts/80-qc.mjs --file work/composite/final-hlg.mix.candidate.mov --audio mix --clean out/final-hlg.temiz-ses.mov --skip-decode --promote",
     "master": "npm run render:gfx && npm run composite && npm run qc && npm run audio && npm run qc:mix",
-    "shorts": "node scripts/90-shorts.mjs"
+    "shorts": "node scripts/90-shorts.mjs",
+    "ilan:still": "remotion still src/ilan/giris.ts IlanReel out/ilan-onizleme.png --props=work/ilan-plan.json",
+    "ilan:render": "remotion render src/ilan/giris.ts IlanReel out/final-dikey.mp4 --props=work/ilan-plan.json --codec=h264 --crf=18 --pixel-format=yuv420p --color-space=bt709 --audio-codec=aac",
+    "ilan:studio": "remotion studio src/ilan/giris.ts --props=work/ilan-plan.json"
   },
   "sideEffects": [
     "*.css"

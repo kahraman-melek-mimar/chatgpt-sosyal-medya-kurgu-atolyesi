@@ -3,6 +3,7 @@
 > **VARSAYILAN FORMAT: DİKEY 9:16 (1080×1920).** Kullanıcı şimdilik YouTube için değil; Instagram Reels + Story,
 > TikTok ve WhatsApp Durum için video hazırlıyor. Tek bir 1080×1920 master üç platformu da karşılar.
 > Platform ölçüleri ve güvenli alanlar: `.claude/skills/video-kurgula/references/dikey-format.md` (her işe başlamadan oku).
+> Emlak ilan videosu = `IlanReel` kompozisyonu (`src/ilan/`, rehber: `.claude/skills/video-kurgula/references/ilan-reel.md`).
 > Yatay 16:9 / YouTube akışı (bölüm listesi, `--youtube` dosyası, `90-shorts`) yalnızca kullanıcı açıkça isterse.
 
 This repo is a **reusable editing workshop**: a Remotion graphics layer + FFmpeg/x265 compositing + sound design,
