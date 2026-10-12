@@ -1,8 +1,11 @@
 {
-  "name": "claude-kurgu-atolyesi",
+  "name": "sosyal-medya-kurgu-atolyesi",
   "version": "1.0.0",
-  "description": "Claude Code ile konuşan-kafa YouTube videolarını kodla kurgulama atölyesi (Remotion + FFmpeg)",
-  "repository": {},
+  "description": "Kahraman MELEK — Sosyal Medya Kurgu Atölyesi: dikey Reels/TikTok/WhatsApp Durum emlak videolarını kodla kurgulama (Remotion + FFmpeg)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kahraman-melek-mimar/sosyal-medya-kurgu-atolyesi"
+  },
   "license": "MIT",
   "private": true,
   "dependencies": {
@@ -56,5 +59,6 @@
   },
   "sideEffects": [
     "*.css"
-  ]
+  ],
+  "author": "Kahraman Melek"
 }

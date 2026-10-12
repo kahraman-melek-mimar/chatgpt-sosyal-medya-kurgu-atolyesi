@@ -1,4 +1,4 @@
-# Claude Kurgu Atölyesi — konuşan-kafa dikey sosyal medya videoları için kodla kurgu
+# Kahraman MELEK — Sosyal Medya Kurgu Atölyesi (dikey konuşma + emlak ilan videoları, kodla kurgu)
 
 > **VARSAYILAN FORMAT: DİKEY 9:16 (1080×1920).** Kullanıcı şimdilik YouTube için değil; Instagram Reels + Story,
 > TikTok ve WhatsApp Durum için video hazırlıyor. Tek bir 1080×1920 master üç platformu da karşılar.

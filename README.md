@@ -1,6 +1,13 @@
-# Claude Kurgu Atölyesi
+# Kahraman MELEK — Sosyal Medya Kurgu Atölyesi
 
-Konuşan-kafa (talking-head) YouTube videolarını **Claude Code ile, kod yazarak** kurgulamak için hazır bir atölye.
+Instagram Reels / Story, TikTok ve WhatsApp Durum için **dikey (9:16) emlak ve konuşma videolarını** Claude Code ile,
+kod yazarak kurgulayan atölye. Coldwell Banker kimlikli ilan videoları için hazır `IlanReel` kompozisyonu içerir
+(`npm run ilan:render`, rehber: `.claude/skills/video-kurgula/references/ilan-reel.md`).
+
+> Onur Yıldırım'ın açık kaynak [Claude Kurgu Atölyesi](https://github.com/onuryildriim/claude-kurgu-atolyesi)
+> projesinden (MIT) türetilmiştir. Aşağıdaki genel kurulum ve yatay (16:9) akış anlatımı özgün projedendir.
+
+Konuşan-kafa (talking-head) videolarını **Claude Code ile, kod yazarak** kurgulamak için hazır bir atölye.
 Videonu bir klasöre koyup Claude'a **"bunu kurgula"** diyorsun. Claude sırayla şunları yapıyor:
 
 1. Videoyu deşifre ediyor ve konuşmayı anlıyor.
