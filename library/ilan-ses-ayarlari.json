@@ -1,0 +1,25 @@
+{
+  "_aciklama": "Seslendirme ve avatar ayarları. Beğendiğiniz sonucu verdiyse değiştirmeyin: her video aynı ses ve tonla çıkar. API anahtarları ve ses/avatar kimlikleri .env dosyasındadır, burada değil.",
+  "elevenlabs": {
+    "model_id": "eleven_multilingual_v2",
+    "seed": 42,
+    "voice_settings": {
+      "stability": 0.55,
+      "similarity_boost": 0.8,
+      "style": 0.15,
+      "use_speaker_boost": true,
+      "speed": 1.0
+    },
+    "apply_text_normalization": "auto",
+    "output_format": "mp3_44100_128"
+  },
+  "heygen": {
+    "aspect_ratio": "9:16",
+    "resolution": "1080p",
+    "background": { "type": "color", "value": "#012169" }
+  },
+  "zamanlama": {
+    "seslendirmeBaslangic": 0.3,
+    "altyaziKuyruk": 0.25
+  }
+}

@@ -17,6 +17,10 @@ WhatsApp Durum. Eski 16:9 hattından (src/index.ts, work/edit-plan.json, scripts
 | `public/marka/` | `cb-logo-cerceveli.png`, `portre.png` |
 | `library/examples/ilan-plan.example.json` | Örnek plan (medyasız → lacivert yer tutucular) |
 | `work/ilan-plan.json` | Bu videonun planı (git'e girmez) |
+| `work/metin.md` | Seslendirme metni (git'e girmez) |
+| `scripts/ilan/` | `10-seslendir.mjs` (ElevenLabs), `20-avatar.mjs` (HeyGen), `lib/okunus.mjs` (Türkçe okunuş), testler |
+| `library/telaffuz/sozluk.tr.json` | Kalıcı telaffuz düzeltmeleri |
+| `library/ilan-ses-ayarlari.json` | Ses ve avatar ayarları |
 
 ## Akış
 
@@ -51,3 +55,32 @@ WhatsApp Durum. Eski 16:9 hattından (src/index.ts, work/edit-plan.json, scripts
 Test medyasıyla 21 sn'lik tam render: 630/630 kare, 1080×1920, H.264 yuv420p tv-range bt709, AAC 48 kHz.
 Kareler güvenli alan çizgileriyle incelendi: kritik öğelerin tamamı içeride. Gerçek çekimle ilk videoda
 yatay kaynak kadrajı (`odak`) ve altyazı okunurluğu ayrıca kontrol edilmeli.
+
+## Seslendirme ve avatar (API akışı: ElevenLabs + HeyGen)
+
+Kullanıcı seslendirmeyi ElevenLabs (klon sesi), konuşan kişiyi HeyGen (avatar) ile üretir; ikisi de **API ile**
+ve kullanıcının Mac'inde çalışır (anahtarlar `.env`, git'e girmez — `.env.example`'a bak). Bu sohbet ortamı bu
+servislere ağ erişimine sahip değildir; betikler yalnız kullanıcının makinesinde gerçek API'ye gider.
+
+| Adım | Komut | Ne yapar |
+|---|---|---|
+| 1 | `work/metin.md` yaz | Yazılı ilan metni (altyazıda aynen görünür). `#` satırları okunmaz |
+| 2 | `npm run ilan:seslendir -- --kuru` | **Ücretsiz kontrol**: okunuş metnini ve altyazı parçalarını gösterir |
+| 3 | `npm run ilan:seslendir` | ElevenLabs `with-timestamps` → `public/assets/seslendirme.mp3`; kelime zamanlarından altyazı; `work/ilan-plan.json` içine `seslendirme` + `altyazi` yazar |
+| 4 | `npm run ilan:avatar` | Sesi HeyGen'e yükler, 9:16 1080p avatar videosu üretir (dudaklar bu sese senkron) → `public/assets/avatar.mp4` |
+| 5 | planda konuşma sahneleri `{"tip":"konusma","src":"assets/avatar.mp4","senkron":true}` | Avatar klibi seslendirme zaman çizelgesinde oynar; sahne sessiz, ses seslendirme kanalından |
+| 6 | `npm run ilan:render` | Son video |
+
+- **Telaffuz:** yazılı metin `scripts/ilan/lib/okunus.mjs` ile okunuşa çevrilir (sayılar, `6+2`, `m²`, fiyat, telefon
+  grupları, `%`, sıra sayıları, kısaltmalar). Yanlış okunan kelime → `library/telaffuz/sozluk.tr.json` → `kelimeler`.
+  Her düzeltme kalıcıdır. Test: `npm run ilan:test`. Web arayüzü için: `npm run ilan:sozluk` → `out/telaffuz-sozlugu.pls`.
+- **Ses ayarları** (model, seed, stability, similarity, style, speed) ve HeyGen (oran, çözünürlük, CB lacivert arka
+  plan): `library/ilan-ses-ayarlari.json`. Kullanıcı beğendiği ayarı bulduktan sonra değiştirme.
+- **Müzik** seslendirme ve konuşma sahnelerinde `konusmadaSes` seviyesine iner.
+- **Maliyet:** her `ilan:seslendir` ElevenLabs karakteri, her `ilan:avatar` HeyGen kredisi harcar. Önce `--kuru`,
+  avatar'ı yalnız ses onaylandıktan sonra çalıştır. Kullanıcı açıkça istemeden yeniden üretme.
+- **Platform etiketi:** avatar/klon ses içeren videoyu yüklerken Instagram/TikTok'ta "AI ile oluşturuldu" etiketini
+  hatırlat.
+- **Doğrulama (Ekim 2026):** iki betik, resmi dokümanlardaki yanıt biçimlerini taklit eden yerel sahte sunucuyla uçtan
+  uca test edildi (`ELEVENLABS_BASE_URL` / `HEYGEN_BASE_URL` ile yönlendirilebilir). Video ortasındaki avatar sahnesi
+  doğru kareden oynadı (senkron kontrolü). Gerçek API ile ilk çalıştırmada yanıt alanlarını yine kontrol et.

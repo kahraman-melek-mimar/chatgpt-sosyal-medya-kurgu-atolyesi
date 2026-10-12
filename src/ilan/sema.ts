@@ -15,8 +15,13 @@ export const sahneSchema = z.object({
   odak: z.object({ x: z.number().min(0).max(1), y: z.number().min(0).max(1) }).default({ x: 0.5, y: 0.5 }),
   /** Mülk sahnelerinde sol altta görünen oda etiketi, ör. "SALON", "ANA YATAK ODASI". */
   etiket: z.string().optional(),
-  /** Sahnenin sesi: konuşmada varsayılan açık, mülk videosunda kapalı. */
+  /** Sahnenin sesi: konuşmada varsayılan açık, mülk videosunda kapalı. Seslendirme varken avatar sahnesi sessizdir. */
   ses: z.boolean().optional(),
+  /**
+   * Avatar (HeyGen) klibi seslendirmeyle aynı zaman çizelgesinde: klip, sahnenin videodaki başlangıcına karşılık gelen
+   * yerden oynar, böylece dudaklar seslendirmeyle eşleşir. `baslangic` yok sayılır.
+   */
+  senkron: z.boolean().default(false),
 });
 
 export const ilanPlanSchema = z.object({
@@ -38,6 +43,10 @@ export const ilanPlanSchema = z.object({
   bilgi: z.object({ from: z.number().min(0), to: z.number(), aralik: z.number().default(0.25) }),
   /** Altyazı satırları (gömülü). Kısa tut: 2–6 kelime. */
   altyazi: z.array(z.object({ from: z.number(), to: z.number(), text: z.string() })).default([]),
+  /** ElevenLabs seslendirmesi (npm run ilan:seslendir doldurur). `from`: videonun kaçıncı saniyesinde başlar. */
+  seslendirme: z
+    .object({ src: z.string(), from: z.number().min(0).default(0.3), ses: z.number().min(0).max(2).default(1) })
+    .optional(),
   muzik: z
     .object({
       src: z.string(),

@@ -1,0 +1,43 @@
+{
+  "_aciklama": "Seslendirme için yazılı → okunuş değişimleri. 'kisaltmalar' noktalı kısaltmalardır (büyük/küçük harf duyarlı). 'kelimeler' tam kelime eşleşir: site/mahalle adları, yabancı markalar, yanlış okunan her şey buraya. Bir kelime videoda yanlış okunduysa buraya ekleyin; bir sonraki videoda düzelir. Vurgu için büyük harf veya tire denenebilir (ör. 'GölbaŞI' gibi değil, önce yazımla deneyin).",
+  "kisaltmalar": {
+    "Mh.": "Mahallesi",
+    "Mah.": "Mahallesi",
+    "Cad.": "Caddesi",
+    "Cd.": "Caddesi",
+    "Sk.": "Sokağı",
+    "Sok.": "Sokağı",
+    "Blv.": "Bulvarı",
+    "Bulv.": "Bulvarı",
+    "Apt.": "Apartmanı",
+    "Sit.": "Sitesi",
+    "No:": "numara",
+    "No.": "numara",
+    "vb.": "ve benzeri",
+    "vs.": "vesaire",
+    "Dr.": "Doktor",
+    "Av.": "Avukat",
+    "Prof.": "Profesör",
+    "Doç.": "Doçent",
+    "Yrd.": "Yardımcı",
+    "İl.": "İlçesi"
+  },
+  "kelimeler": {
+    "Coldwell Banker": "Koldvel Benkır",
+    "Coldwell": "Koldvel",
+    "Banker": "Benkır",
+    "WC": "vece",
+    "AVM": "aveem",
+    "TOKİ": "Toki",
+    "km": "kilometre",
+    "dk": "dakika",
+    "sn": "saniye",
+    "TL": "lira",
+    "₺": "lira",
+    "USD": "dolar",
+    "EUR": "avro",
+    "&": "ve",
+    "WhatsApp": "Vatsap",
+    "Instagram": "İnstagram"
+  }
+}

@@ -21,7 +21,7 @@ const pencere = (t: number, from: number, to: number, giris = 0.45, cikis = 0.35
 
 // ───────────────────────── arka plan: sahneler ─────────────────────────
 
-const SahneGorsel: React.FC<{ s: Sahne; frames: number }> = ({ s, frames }) => {
+const SahneGorsel: React.FC<{ s: Sahne; frames: number; senkronBas: number }> = ({ s, frames, senkronBas }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const p = frames > 1 ? frame / (frames - 1) : 0;
@@ -55,10 +55,12 @@ const SahneGorsel: React.FC<{ s: Sahne; frames: number }> = ({ s, frames }) => {
     );
   }
   if (foto) return <Img src={staticFile(s.src)} style={stil} />;
-  const sesAcik = s.ses ?? s.tip === "konusma";
+  // Seslendirmeyle senkron avatar sesi kapalıdır (ses seslendirme kanalından gelir).
+  const sesAcik = s.senkron ? false : (s.ses ?? s.tip === "konusma");
+  const bas = s.senkron ? Math.max(0, senkronBas) : s.baslangic;
   return (
     <AbsoluteFill style={{ overflow: "hidden" }}>
-      <Video src={staticFile(s.src)} trimBefore={Math.round(s.baslangic * fps)} muted={!sesAcik} objectFit="cover" style={stil} />
+      <Video src={staticFile(s.src)} trimBefore={Math.round(bas * fps)} muted={!sesAcik} objectFit="cover" style={stil} />
     </AbsoluteFill>
   );
 };
@@ -72,11 +74,13 @@ const SahneKatmani: React.FC<{ plan: IlanPlan }> = ({ plan }) => {
       {plan.sahneler.map((s, i) => {
         const from = Math.round(bas * fps);
         const frames = Math.round(s.sure * fps);
+        // Senkron avatar: klipte, sahnenin başladığı an eksi seslendirmenin başladığı an kadar ileri sar.
+        const senkronBas = bas - (plan.seslendirme?.from ?? 0);
         bas += s.sure;
         return (
           <Sequence key={i} from={from} durationInFrames={frames} premountFor={fps}>
             <GirisOpak ilk={i === 0}>
-              <SahneGorsel s={s} frames={frames} />
+              <SahneGorsel s={s} frames={frames} senkronBas={senkronBas} />
             </GirisOpak>
           </Sequence>
         );
@@ -254,7 +258,9 @@ const Muzik: React.FC<{ plan: IlanPlan }> = ({ plan }) => {
   const { fps, durationInFrames } = useVideoConfig();
   const m = plan.muzik;
   if (!m) return null;
-  // Konuşma sahnelerinde müziği kıs (ducking), mülk sahnelerinde aç; sonda 1 sn içinde sön.
+  // Seslendirmenin bittiği kare: altyazı sonu yaklaşık olarak kullanılır (ses dosyası süresi render'da bilinmez).
+  const sesSonu = plan.altyazi.length ? Math.round(plan.altyazi[plan.altyazi.length - 1].to * fps) : durationInFrames;
+  // Konuşma sahnelerinde ve seslendirme süresince müziği kıs (ducking); sonda 1 sn içinde sön.
   const araliklar: { a: number; b: number; konusma: boolean }[] = [];
   let bas = 0;
   for (const s of plan.sahneler) {
@@ -267,7 +273,8 @@ const Muzik: React.FC<{ plan: IlanPlan }> = ({ plan }) => {
       loop
       volume={(f) => {
         const r = araliklar.find((x) => f >= x.a && f < x.b);
-        const hedef = r?.konusma ? m.konusmadaSes : m.ses;
+        const seslendirmeVar = plan.seslendirme && f >= plan.seslendirme.from * fps && f < sesSonu;
+        const hedef = r?.konusma || seslendirmeVar ? m.konusmadaSes : m.ses;
         const sonus = interpolate(f, [durationInFrames - fps, durationInFrames - 1], [1, 0], clamp);
         return hedef * sonus;
       }}
@@ -313,6 +320,11 @@ export const IlanReel: React.FC<IlanPlan> = (plan) => {
         <Kapanis plan={plan} />
       </Sequence>
       <Muzik plan={plan} />
+      {plan.seslendirme ? (
+        <Sequence from={Math.round(plan.seslendirme.from * fps)} layout="none">
+          <Audio src={staticFile(plan.seslendirme.src)} volume={() => plan.seslendirme?.ses ?? 1} />
+        </Sequence>
+      ) : null}
     </AbsoluteFill>
   );
 };

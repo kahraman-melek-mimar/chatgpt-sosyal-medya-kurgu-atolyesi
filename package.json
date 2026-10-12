@@ -55,7 +55,11 @@
     "shorts": "node scripts/90-shorts.mjs",
     "ilan:still": "remotion still src/ilan/giris.ts IlanReel out/ilan-onizleme.png --props=work/ilan-plan.json",
     "ilan:render": "remotion render src/ilan/giris.ts IlanReel out/final-dikey.mp4 --props=work/ilan-plan.json --codec=h264 --crf=18 --pixel-format=yuv420p --color-space=bt709 --audio-codec=aac",
-    "ilan:studio": "remotion studio src/ilan/giris.ts --props=work/ilan-plan.json"
+    "ilan:studio": "remotion studio src/ilan/giris.ts --props=work/ilan-plan.json",
+    "ilan:seslendir": "node --env-file-if-exists=.env scripts/ilan/10-seslendir.mjs",
+    "ilan:avatar": "node --env-file-if-exists=.env scripts/ilan/20-avatar.mjs",
+    "ilan:sozluk": "node scripts/ilan/sozluk-pls.mjs",
+    "ilan:test": "node scripts/ilan/okunus-test.mjs"
   },
   "sideEffects": [
     "*.css"
