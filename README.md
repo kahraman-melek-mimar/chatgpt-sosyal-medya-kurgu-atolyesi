@@ -1,5 +1,7 @@
 # Kahraman MELEK — Sosyal Medya Kurgu Atölyesi
 
+*Social Media Claude Production*
+
 Instagram Reels / Story, TikTok ve WhatsApp Durum için **dikey (9:16) emlak ve konuşma videolarını** Claude Code ile,
 kod yazarak kurgulayan atölye. Coldwell Banker kimlikli ilan videoları için hazır `IlanReel` kompozisyonu içerir
 (`npm run ilan:render`, rehber: `.claude/skills/video-kurgula/references/ilan-reel.md`).
