@@ -8,6 +8,7 @@
 // Ayarlar: library/ilan-ses-ayarlari.json. Telaffuz düzeltmeleri: library/telaffuz/sozluk.tr.json.
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
+import "./lib/env.mjs";
 import { seslendirmePlani } from "./lib/okunus.mjs";
 import { KOK, kurguAdi, kurguGerekli, p, yollar } from "./lib/kurgu.mjs";
 

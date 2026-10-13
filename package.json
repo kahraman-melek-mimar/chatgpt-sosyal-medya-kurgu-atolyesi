@@ -56,8 +56,8 @@
     "ilan:still": "node scripts/ilan/30-render.mjs --kare=60",
     "ilan:render": "node scripts/ilan/30-render.mjs",
     "ilan:studio": "remotion studio src/ilan/giris.ts --props=work/ilan-plan.json",
-    "ilan:seslendir": "node --env-file-if-exists=.env scripts/ilan/10-seslendir.mjs",
-    "ilan:avatar": "node --env-file-if-exists=.env scripts/ilan/20-avatar.mjs",
+    "ilan:seslendir": "node scripts/ilan/10-seslendir.mjs",
+    "ilan:avatar": "node scripts/ilan/20-avatar.mjs",
     "ilan:sozluk": "node scripts/ilan/sozluk-pls.mjs",
     "ilan:test": "node scripts/ilan/okunus-test.mjs",
     "ilan:yeni": "node scripts/ilan/00-yeni.mjs"

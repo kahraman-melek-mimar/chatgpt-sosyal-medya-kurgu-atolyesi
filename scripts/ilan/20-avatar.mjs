@@ -6,6 +6,7 @@
 // Gerekenler (.env): HEYGEN_API_KEY, HEYGEN_AVATAR_ID. Önce: npm run ilan:seslendir.
 // Ayarlar: library/ilan-ses-ayarlari.json → heygen (9:16, 1080p, CB lacivert arka plan).
 // Üretim HeyGen kredisi harcar; aynı ses için yeniden çalıştırmadan önce mevcut avatar.mp4'ü kontrol edin.
+import "./lib/env.mjs";
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { KOK, kurguAdi, kurguGerekli, p, yollar } from "./lib/kurgu.mjs";
