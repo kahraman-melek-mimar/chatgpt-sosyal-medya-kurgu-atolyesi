@@ -26,6 +26,11 @@ export const sahneSchema = z.object({
 
 export const ilanPlanSchema = z.object({
   fps: z.number().int().positive().default(30),
+  /**
+   * Kurgu klasörü (public/ altına göre), ör. "kurgular/golbasi-villa". Verilirse sahne, seslendirme ve müzik yolları
+   * bu klasöre göredir ("medya/salon.jpg"). Danışman portresi/logosu her zaman public/ köküne göredir.
+   */
+  klasor: z.string().optional(),
   ilan: z.object({
     tur: z.enum(["SATILIK", "KİRALIK"]),
     emlakTipi: z.string(), // "VİLLA", "DAİRE" …

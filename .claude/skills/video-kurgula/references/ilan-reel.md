@@ -4,6 +4,33 @@ Bu kullanıcının varsayılan dikey videosu: danışmanın konuşma çekimleri 
 Coldwell Banker kimliğiyle. 1080×1920, 30 fps, H.264 SDR Rec.709 + AAC. Tek dosya → Instagram Reels/Story, TikTok,
 WhatsApp Durum. Eski 16:9 hattından (src/index.ts, work/edit-plan.json, scripts/60–80) tamamen bağımsızdır.
 
+## Kurgu klasörü (her ilan videosu ayrı)
+
+Her kurgu kendi klasöründe yaşar; dosyalar asla karışmaz. Kurgu adı Türkçe yazılabilir, klasör adı otomatik
+sadeleşir ("Gölbaşı Villa" → `golbasi-villa`).
+
+```
+public/kurgular/<isim>/
+  metin.md          seslendirme metni (kullanıcı yazar)
+  plan.json         ilan planı; "klasor": "kurgular/<isim>" → içindeki yollar bu klasöre göre
+  medya/            fotoğraf, video, müzik (kullanıcı koyar)  →  planda "src": "medya/salon.jpg"
+  seslendirme.mp3   ilan:seslendir üretir                    →  planda "seslendirme.mp3"
+  avatar.mp4        ilan:avatar üretir                       →  planda "avatar.mp4"
+out/<isim>/final-dikey.mp4                                   ilan:render üretir
+```
+
+| Komut | Ne yapar |
+|---|---|
+| `npm run ilan:yeni -- "<isim>"` | Klasörü açar (metin.md şablonu, örnek plan.json, medya/). Adsız: kurguları listeler |
+| `npm run ilan:seslendir -- <isim> --kuru` | Ücretsiz okunuş kontrolü |
+| `npm run ilan:seslendir -- <isim>` | ElevenLabs → seslendirme.mp3 + altyazılar plana |
+| `npm run ilan:avatar -- <isim>` | HeyGen → avatar.mp4 |
+| `npm run ilan:render -- <isim> --kare=240` | Tek kare önizleme → out/<isim>/onizleme-240.png |
+| `npm run ilan:render -- <isim>` | Son video → out/<isim>/final-dikey.mp4 |
+
+`public/kurgular/*` git'e girmez (kişisel medya). Kurgu adı verilmeyen komutlar eski tek klasör düzenini
+(`work/` + `public/assets/`) kullanır. Ortak yol mantığı: `scripts/ilan/lib/kurgu.mjs`.
+
 ## Dosyalar
 
 | Yol | Rol |
@@ -18,7 +45,7 @@ WhatsApp Durum. Eski 16:9 hattından (src/index.ts, work/edit-plan.json, scripts
 | `library/examples/ilan-plan.example.json` | Örnek plan (medyasız → lacivert yer tutucular) |
 | `work/ilan-plan.json` | Bu videonun planı (git'e girmez) |
 | `work/metin.md` | Seslendirme metni (git'e girmez) |
-| `scripts/ilan/` | `10-seslendir.mjs` (ElevenLabs), `20-avatar.mjs` (HeyGen), `lib/okunus.mjs` (Türkçe okunuş), testler |
+| `scripts/ilan/` | `00-yeni.mjs` (kurgu klasörü), `10-seslendir.mjs` (ElevenLabs), `20-avatar.mjs` (HeyGen), `30-render.mjs`, `lib/kurgu.mjs` (yollar), `lib/okunus.mjs` (Türkçe okunuş), testler |
 | `library/telaffuz/sozluk.tr.json` | Kalıcı telaffuz düzeltmeleri |
 | `library/ilan-ses-ayarlari.json` | Ses ve avatar ayarları |
 

@@ -9,6 +9,9 @@ projects
 public/main.mov
 public/assets/*
 !public/assets/.gitkeep
+# Her kurgunun klasörü (medya + metin + plan) kişiseldir
+public/kurgular/*
+!public/kurgular/.gitkeep
 public/proxy
 public/derived
 work/*

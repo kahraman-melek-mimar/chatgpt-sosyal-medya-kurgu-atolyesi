@@ -9,6 +9,8 @@ import { IlanPlan, Sahne, toplamSure } from "./sema";
 import { guvenli as G, renk, yazi } from "./tema";
 
 const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
+/** Kurgu klasörüne göre dosya yolu ("medya/salon.jpg" → "kurgular/<ad>/medya/salon.jpg"). */
+const dosya = (klasor: string | undefined, src: string) => staticFile(klasor ? `${klasor}/${src}` : src);
 const yumusak = Easing.bezier(0.16, 1, 0.3, 1);
 const tr = (s: string) => s.toLocaleUpperCase("tr-TR");
 
@@ -21,7 +23,7 @@ const pencere = (t: number, from: number, to: number, giris = 0.45, cikis = 0.35
 
 // ───────────────────────── arka plan: sahneler ─────────────────────────
 
-const SahneGorsel: React.FC<{ s: Sahne; frames: number; senkronBas: number }> = ({ s, frames, senkronBas }) => {
+const SahneGorsel: React.FC<{ s: Sahne; frames: number; senkronBas: number; klasor?: string }> = ({ s, frames, senkronBas, klasor }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const p = frames > 1 ? frame / (frames - 1) : 0;
@@ -54,13 +56,13 @@ const SahneGorsel: React.FC<{ s: Sahne; frames: number; senkronBas: number }> = 
       </AbsoluteFill>
     );
   }
-  if (foto) return <Img src={staticFile(s.src)} style={stil} />;
+  if (foto) return <Img src={dosya(klasor, s.src)} style={stil} />;
   // Seslendirmeyle senkron avatar sesi kapalıdır (ses seslendirme kanalından gelir).
   const sesAcik = s.senkron ? false : (s.ses ?? s.tip === "konusma");
   const bas = s.senkron ? Math.max(0, senkronBas) : s.baslangic;
   return (
     <AbsoluteFill style={{ overflow: "hidden" }}>
-      <Video src={staticFile(s.src)} trimBefore={Math.round(bas * fps)} muted={!sesAcik} objectFit="cover" style={stil} />
+      <Video src={dosya(klasor, s.src)} trimBefore={Math.round(bas * fps)} muted={!sesAcik} objectFit="cover" style={stil} />
     </AbsoluteFill>
   );
 };
@@ -80,7 +82,7 @@ const SahneKatmani: React.FC<{ plan: IlanPlan }> = ({ plan }) => {
         return (
           <Sequence key={i} from={from} durationInFrames={frames} premountFor={fps}>
             <GirisOpak ilk={i === 0}>
-              <SahneGorsel s={s} frames={frames} senkronBas={senkronBas} />
+              <SahneGorsel s={s} frames={frames} senkronBas={senkronBas} klasor={plan.klasor} />
             </GirisOpak>
           </Sequence>
         );
@@ -269,7 +271,7 @@ const Muzik: React.FC<{ plan: IlanPlan }> = ({ plan }) => {
   }
   return (
     <Audio
-      src={staticFile(m.src)}
+      src={dosya(plan.klasor, m.src)}
       loop
       volume={(f) => {
         const r = araliklar.find((x) => f >= x.a && f < x.b);
@@ -322,7 +324,7 @@ export const IlanReel: React.FC<IlanPlan> = (plan) => {
       <Muzik plan={plan} />
       {plan.seslendirme ? (
         <Sequence from={Math.round(plan.seslendirme.from * fps)} layout="none">
-          <Audio src={staticFile(plan.seslendirme.src)} volume={() => plan.seslendirme?.ses ?? 1} />
+          <Audio src={dosya(plan.klasor, plan.seslendirme.src)} volume={() => plan.seslendirme?.ses ?? 1} />
         </Sequence>
       ) : null}
     </AbsoluteFill>
