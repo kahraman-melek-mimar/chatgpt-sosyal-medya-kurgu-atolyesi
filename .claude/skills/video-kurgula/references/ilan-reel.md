@@ -55,8 +55,11 @@ out/<isim>/final-dikey.mp4                                   ilan:render üretir
 2. `cp library/examples/ilan-plan.example.json work/ilan-plan.json` ve doldur:
    - `ilan`: tür (SATILIK/KİRALIK), emlak tipi, oda, konum, site, isteğe bağlı fiyat
    - `ozellikler`: 3–5 sütun (değer + etiket)
-   - `sahneler`: sırayla `konusma` / `mulk-video` / `mulk-foto`; `sure` (sn), `baslangic` (videoda kaçıncı sn),
-     `hareket` (yakinlas/uzaklas/sola/saga/yok), `odak` (yatay kaynakta neyin görüneceği, 0–1), `etiket` (oda adı)
+   - `sahneler`: sırayla `konusma` / `mulk-video` / `mulk-foto` / `ara-kart`; `sure` (sn), `baslangic` (videoda kaçıncı sn),
+     `hareket` (yakinlas/uzaklas/sola/saga/yok), `odak` (yatay kaynakta neyin görüneceği, 0–1), `etiket` (oda adı),
+     `gecis` (sahneye giriş: kesme / yumusak (varsayılan) / kayma / perde / karartma),
+     `ara-kart` için `metin` (≤ 7 kelimelik köprü cümlesi) + isteğe bağlı `ust` etiketi.
+     **Geçişleri seçmeden önce `gecisler.md`'yi oku**: görsel geçiş, söz geçişinin söylendiği ana denk gelir.
    - `baslik` ve `bilgi`: mutlak saniye aralıkları (başlık ilk ~6 sn, bilgi çubuğu ardından)
    - `altyazi`: kısa satırlar, konuşmayla eşzamanlı (deşifre: `npm run transcribe` veya elle)
    - `muzik`: dosya + seviye; konuşma sahnelerinde otomatik kısılır, son 1 sn söner
@@ -76,6 +79,11 @@ out/<isim>/final-dikey.mp4                                   ilan:render üretir
 - Kapanış (son `kapanis.sure` sn): lacivert zemin, logo, dairesel portre, ad + unvan + ofis, "HEMEN ARAYIN" +
   en büyük öğe olarak telefon, Garamond italik slogan. Tüm kapanış y < 1250.
 - Konuşma sahnelerinde ses açık, mülk sahnelerinde kapalı (`ses` ile değiştirilebilir).
+- Geçişler (Ekim 2026): `kayma` önceki sahneyi 0,4 sn uzatıp üstüne sağdan iter (önceki sahnenin sesi o kuyrukta
+  kapanır); `perde` (0,6 sn) ve `karartma` (0,5 sn) sınırın iki yanına yayılan bir örtüdür, kesme örtünün ekranı tam
+  kapladığı karede olur. Başlık kartı, bilgi çubuğu, üst bant ve altyazı örtünün üstünde kalır (yazı zıplamaz).
+- Ara kart: lacivert zemin, üst etiket (Poppins, geniş aralık), büyüyen ince çizgi, Garamond italik 74 px köprü
+  cümlesi; y ≈ 780–1080, x 85–810 (buton sütununa girmez).
 
 ## Doğrulandı (ilk kurulum, Ekim 2026)
 

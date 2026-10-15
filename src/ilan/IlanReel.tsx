@@ -5,7 +5,7 @@
 import React from "react";
 import { AbsoluteFill, Easing, Img, interpolate, Sequence, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
 import { Audio, Video } from "@remotion/media";
-import { IlanPlan, Sahne, toplamSure } from "./sema";
+import { GECIS_SN, IlanPlan, Sahne, toplamSure } from "./sema";
 import { guvenli as G, renk, yazi } from "./tema";
 
 const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
@@ -26,7 +26,9 @@ const pencere = (t: number, from: number, to: number, giris = 0.45, cikis = 0.35
 const SahneGorsel: React.FC<{ s: Sahne; frames: number; senkronBas: number; klasor?: string }> = ({ s, frames, senkronBas, klasor }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const p = frames > 1 ? frame / (frames - 1) : 0;
+  if (s.tip === "ara-kart") return <AraKart s={s} />;
+  // Kayma geçişinde sahne, sonrakinin altında birkaç kare daha görünür: hareket ve ses o kuyrukta durur.
+  const p = frames > 1 ? Math.min(frame, frames - 1) / (frames - 1) : 0;
   const foto = s.tip === "mulk-foto";
   // Fotoğrafta belirgin, videoda hafif hareket (gerçek mimariyi bozmadan, sadece kadraj).
   const guc = foto ? 1 : 0.35;
@@ -62,28 +64,49 @@ const SahneGorsel: React.FC<{ s: Sahne; frames: number; senkronBas: number; klas
   const bas = s.senkron ? Math.max(0, senkronBas) : s.baslangic;
   return (
     <AbsoluteFill style={{ overflow: "hidden" }}>
-      <Video src={dosya(klasor, s.src)} trimBefore={Math.round(bas * fps)} muted={!sesAcik} objectFit="cover" style={stil} />
+      <Video
+        src={dosya(klasor, s.src)}
+        trimBefore={Math.round(bas * fps)}
+        muted={!sesAcik}
+        volume={(f) => (f < frames ? 1 : 0)}
+        objectFit="cover"
+        style={stil}
+      />
     </AbsoluteFill>
   );
 };
 
-/** Sahne geçişi: her sahne ilk 6 karede beyaza yakın bir parlamadan değil, kısa bir opaklık girişiyle gelir. */
+/** Sahne sınırları (saniye): her sahnenin başı, süresi ve giriş geçişi. */
+const sahneZamanlari = (plan: IlanPlan) => {
+  let bas = 0;
+  return plan.sahneler.map((s, i) => {
+    const r = { s, i, bas, gecis: i === 0 ? ("kesme" as const) : s.gecis };
+    bas += s.sure;
+    return r;
+  });
+};
+
+/**
+ * Sahneler + giriş geçişleri (references/gecisler.md). kayma: önceki sahne kayma süresi kadar uzatılır ve yeni sahne
+ * onun üstüne sağdan iter. perde/karartma: sınırda ayrı bir örtü katmanı (GecisOrtusu) kesmeyi gizler.
+ */
 const SahneKatmani: React.FC<{ plan: IlanPlan }> = ({ plan }) => {
   const { fps } = useVideoConfig();
-  let bas = 0;
+  const z = sahneZamanlari(plan);
   return (
     <>
-      {plan.sahneler.map((s, i) => {
+      {z.map(({ s, i, bas, gecis }) => {
         const from = Math.round(bas * fps);
         const frames = Math.round(s.sure * fps);
+        const sonraki = z[i + 1];
+        const kuyruk = sonraki?.gecis === "kayma" ? Math.round(GECIS_SN.kayma * fps) : 0;
         // Senkron avatar: klipte, sahnenin başladığı an eksi seslendirmenin başladığı an kadar ileri sar.
         const senkronBas = bas - (plan.seslendirme?.from ?? 0);
-        bas += s.sure;
         return (
-          <Sequence key={i} from={from} durationInFrames={frames} premountFor={fps}>
-            <GirisOpak ilk={i === 0}>
+          <Sequence key={i} from={from} durationInFrames={frames + kuyruk} premountFor={fps}>
+            <SahneGecisi gecis={gecis} frames={frames} kuyruk={kuyruk}>
               <SahneGorsel s={s} frames={frames} senkronBas={senkronBas} klasor={plan.klasor} />
-            </GirisOpak>
+            </SahneGecisi>
           </Sequence>
         );
       })}
@@ -91,10 +114,68 @@ const SahneKatmani: React.FC<{ plan: IlanPlan }> = ({ plan }) => {
   );
 };
 
-const GirisOpak: React.FC<{ ilk: boolean; children: React.ReactNode }> = ({ ilk, children }) => {
+const SahneGecisi: React.FC<{ gecis: Sahne["gecis"]; frames: number; kuyruk: number; children: React.ReactNode }> = ({ gecis, frames, kuyruk, children }) => {
   const frame = useCurrentFrame();
-  const o = ilk ? 1 : interpolate(frame, [0, 6], [0.35, 1], clamp);
-  return <AbsoluteFill style={{ opacity: o, backgroundColor: renk.cbMaviKoyu }}>{children}</AbsoluteFill>;
+  const { fps } = useVideoConfig();
+  let opak = 1;
+  let x = 0;
+  if (gecis === "yumusak") opak = interpolate(frame, [0, 6], [0.35, 1], clamp);
+  if (gecis === "kayma") x = interpolate(frame, [0, GECIS_SN.kayma * fps], [G.W, 0], { ...clamp, easing: yumusak });
+  // Sonraki sahne kayarak gelirken bu sahne sola itilir (tam çıkmaz, altında kalır).
+  if (kuyruk > 0) x += interpolate(frame, [frames, frames + kuyruk], [0, -G.W * 0.35], { ...clamp, easing: yumusak });
+  return (
+    <AbsoluteFill style={{ opacity: opak, transform: x ? `translateX(${x}px)` : undefined, backgroundColor: renk.cbMaviKoyu, overflow: "hidden" }}>
+      {children}
+    </AbsoluteFill>
+  );
+};
+
+/** perde / karartma: sahne sınırının iki yanına yayılan örtü; kesme, örtü ekranı tam kapladığı karede olur. */
+const GecisOrtusu: React.FC<{ plan: IlanPlan }> = ({ plan }) => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  const katmanlar = sahneZamanlari(plan).map(({ bas, gecis, i }) => {
+    if (gecis !== "perde" && gecis !== "karartma") return null;
+    const b = bas * fps;
+    const yari = (GECIS_SN[gecis] * fps) / 2;
+    if (frame < b - yari || frame > b + yari) return null;
+    if (gecis === "karartma") {
+      const o = interpolate(frame, [b - yari, b, b + yari], [0, 1, 0], { ...clamp, easing: Easing.inOut(Easing.cubic) });
+      return <AbsoluteFill key={i} style={{ backgroundColor: renk.cbMaviKoyu, opacity: o }} />;
+    }
+    // Perde: CB mavisi panel soldan sağa geçer; sınır karesinde ekranı tamamen kaplar. Ön/arka kenarda ince beyaz çizgi.
+    const g = G.W * 1.15;
+    const sol = interpolate(frame, [b - yari, b, b + yari], [-g, -(g - G.W) / 2, G.W], { ...clamp, easing: Easing.inOut(Easing.cubic) });
+    return (
+      <div key={i} style={{ position: "absolute", top: 0, bottom: 0, left: sol, width: g, background: renk.cbMavi }}>
+        <div style={{ position: "absolute", top: 0, bottom: 0, left: 0, width: 6, background: renk.beyaz, opacity: 0.85 }} />
+        <div style={{ position: "absolute", top: 0, bottom: 0, right: 0, width: 6, background: renk.beyaz, opacity: 0.85 }} />
+      </div>
+    );
+  });
+  return <AbsoluteFill style={{ pointerEvents: "none" }}>{katmanlar}</AbsoluteFill>;
+};
+
+/** Bölüm arası köprü kartı: lacivert zemin, küçük üst etiket, büyüyen ince çizgi, Garamond italik köprü cümlesi. */
+const AraKart: React.FC<{ s: Sahne }> = ({ s }) => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  const t = frame / fps;
+  const g = (d: number, sure = 0.5) => interpolate(t, [d, d + sure], [0, 1], { ...clamp, easing: yumusak });
+  return (
+    <AbsoluteFill style={{ background: `radial-gradient(circle at 50% 45%, #0A2E80 0%, ${renk.cbMavi} 50%, ${renk.cbMaviKoyu} 100%)` }}>
+      {/* Güvenli alan içinde, dikey ortaya yakın (y ≈ 780–1080); sağ buton sütununa girmez. */}
+      <div style={{ position: "absolute", top: 780, left: G.yan + 20, right: G.W - G.sagButonX + 20, textAlign: "center", color: renk.beyaz }}>
+        {s.ust ? (
+          <div style={{ fontFamily: yazi.sans, fontWeight: 600, fontSize: 28, letterSpacing: 7, color: renk.griAcik, opacity: g(0.1) }}>{tr(s.ust)}</div>
+        ) : null}
+        <div style={{ height: 3, width: 160 * g(0.2, 0.6), background: renk.beyaz, margin: "22px auto 26px", borderRadius: 2 }} />
+        <div style={{ fontFamily: yazi.serif, fontStyle: "italic", fontWeight: 600, fontSize: 74, lineHeight: 1.12, opacity: g(0.3), transform: `translateY(${(1 - g(0.3)) * 18}px)` }}>
+          {s.metin}
+        </div>
+      </div>
+    </AbsoluteFill>
+  );
 };
 
 // ───────────────────────── üst bant: etiket + logo ─────────────────────────
@@ -307,6 +388,7 @@ export const IlanReel: React.FC<IlanPlan> = (plan) => {
             "linear-gradient(180deg, rgba(0,15,51,0.72) 0%, rgba(0,15,51,0.35) 30%, rgba(0,15,51,0) 45%, rgba(0,0,0,0) 55%, rgba(0,10,30,0.55) 78%, rgba(0,10,30,0.7) 100%)",
         }}
       />
+      <GecisOrtusu plan={plan} />
       {etiketler.map(({ from, s }, i) =>
         s.etiket ? (
           <Sequence key={i} from={Math.round(from * fps)} durationInFrames={Math.round(s.sure * fps)} layout="none">

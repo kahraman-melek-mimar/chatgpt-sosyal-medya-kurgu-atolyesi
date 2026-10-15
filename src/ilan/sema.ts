@@ -2,8 +2,24 @@
 // Örnek: library/examples/ilan-plan.example.json. Tüm süreler SANİYE, tüm medya yolları public/ altına göre.
 import { z } from "zod";
 
+/**
+ * Sahneye giriş geçişi (ilk sahnede yok sayılır). Anlam taşır, süs değildir — kurallar:
+ * .claude/skills/video-kurgula/references/gecisler.md
+ *   kesme    aynı bölüm, ritim          yumusak  aynı bölüm, sakin (varsayılan)
+ *   kayma    mekân değişir, düşünce sürer (önceki sahne itilerek çıkar, ≈0.4 sn)
+ *   perde    bölüm değişimi: CB mavisi perde geçer (≈0.6 sn, hız kesici)
+ *   karartma zaman/ton değişimi: lacivertten geçiş (≈0.5 sn)
+ */
+export const gecisSchema = z.enum(["kesme", "yumusak", "kayma", "perde", "karartma"]);
+
 export const sahneSchema = z.object({
-  tip: z.enum(["konusma", "mulk-video", "mulk-foto"]),
+  /** ara-kart: lacivert zeminde kısa köprü cümlesi (bölüm arası). */
+  tip: z.enum(["konusma", "mulk-video", "mulk-foto", "ara-kart"]),
+  gecis: gecisSchema.default("yumusak"),
+  /** ara-kart: köprü cümlesi (≤ 7 kelime), ör. "Asıl sürpriz burada." */
+  metin: z.string().optional(),
+  /** ara-kart: küçük üst etiket, ör. "ÜST KAT". */
+  ust: z.string().optional(),
   /** public/ altındaki dosya; boş bırakılırsa lacivert yer tutucu çizilir (taslak için). */
   src: z.string().optional(),
   sure: z.number().positive(),
@@ -22,7 +38,7 @@ export const sahneSchema = z.object({
    * yerden oynar, böylece dudaklar seslendirmeyle eşleşir. `baslangic` yok sayılır.
    */
   senkron: z.boolean().default(false),
-});
+}).refine((s) => s.tip !== "ara-kart" || !!s.metin?.trim(), { message: 'ara-kart sahnesinde "metin" zorunlu', path: ["metin"] });
 
 export const ilanPlanSchema = z.object({
   fps: z.number().int().positive().default(30),
@@ -76,5 +92,9 @@ export const ilanPlanSchema = z.object({
 
 export type IlanPlan = z.infer<typeof ilanPlanSchema>;
 export type Sahne = z.infer<typeof sahneSchema>;
+export type Gecis = z.infer<typeof gecisSchema>;
+
+/** Geçiş süreleri (sn). kayma: önceki sahneyle bindirme; perde/karartma: sahne sınırının iki yanına eşit yayılır. */
+export const GECIS_SN = { kayma: 0.4, perde: 0.6, karartma: 0.5 } as const;
 
 export const toplamSure = (p: IlanPlan) => p.sahneler.reduce((s, x) => s + x.sure, 0) + p.kapanis.sure;

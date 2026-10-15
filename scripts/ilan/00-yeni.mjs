@@ -24,6 +24,27 @@ writeFileSync(
   `# ${ad} — seslendirme metni
 # "#" ile başlayan satırlar okunmaz. Metni normal yazın: 6+2, 309 m², 12.500.000 TL, 0542 361 77 91 olduğu gibi kalabilir.
 # Kontrol (ücretsiz): npm run ilan:seslendir -- ${ad} --kuru
+#
+# GEÇİŞLER (rehber: .claude/skills/video-kurgula/references/gecisler.md) — bölümleri bu sırayla doldurun,
+# örnek cümleleri silip kendi cümlenizi yazın. Görsel geçiş (plan.json → "gecis") söz geçişinin söylendiği ana denk gelir.
+#
+# ── 1. HOOK (ilk 1–1,5 sn) — en güçlü özelliği İMA ET, tüketme.
+#    örn: Gölbaşı'nda, bahçesi tamamen size ait bir villa.
+#
+# ── 2. TEMEL BİLGİ — kısa, sayılarla (plan: "kesme").
+#    örn: 6+2, 309 metrekare, dört banyo, kapalı otopark.
+#
+# ── 3. DÖNÜŞ — kontrast ya da "ama durun" (plan: "karartma" veya bir "ara-kart").
+#    örn: Buraya kadar tanıdık. Asıl fark en üst katta.
+#
+# ── 4. TUR — her bölüm somut bir ayrıntıyla açılır: "Zemin kat:", "Sabah sekiz, mutfak." (plan: "kayma"/"perde").
+#    En fazla 2–3 kez baştan-sona bağ: cümlenin son kavramını sonraki cümlenin başında yakala.
+#    örn: Salon tüm gün güney ışığı alıyor. O ışık bahçeye açılan cam kapıdan içeri doluyor.
+#
+# ── 5. TOHUM + ÇAĞRI — kapanışı çağır; verdiğin sözü tut.
+#    örn: Detaylar ve randevu için hemen arayın.
+#
+# Kaçının: "Şimdi size … göstereceğim", "Gelelim …", art arda aynı bağlaç ("Ayrıca… ayrıca…").
 
 `,
 );
