@@ -60,7 +60,8 @@
     "ilan:avatar": "node scripts/ilan/20-avatar.mjs",
     "ilan:sozluk": "node scripts/ilan/sozluk-pls.mjs",
     "ilan:test": "node scripts/ilan/okunus-test.mjs",
-    "ilan:yeni": "node scripts/ilan/00-yeni.mjs"
+    "ilan:yeni": "node scripts/ilan/00-yeni.mjs",
+    "ilan:gecis": "node scripts/ilan/40-gecis-kontrol.mjs"
   },
   "sideEffects": [
     "*.css"

@@ -135,6 +135,11 @@ somut bir ayrıntıyla başlatır. Süre 1.2–2 sn.
 
 ## 4. Kontrol listesi (metin ve plan bittiğinde)
 
+Ölçülebilen kısım otomatik: `npm run ilan:gecis -- <isim>` (ölçü, ±0.3 sn eşleşme, örtüdeki yazılar, ara kart
+uzunluğu, kalıp geçişler, art arda aynı işaret). Bu listeyi uçtan uca `gecis-editoru` ajanı uygular
+(`.claude/agents/gecis-editoru.md`).
+
+
 - [ ] `metin.md`'yi baştan sona sesli oku: hangi cümlede "neden devam edeyim?" sorusu cevapsız kalıyor?
 - [ ] Bölüm sınırları belli mi? Her bölüm rampa cümlesiyle (1d) açılıyor mu?
 - [ ] Baştan-sona bağ ≤ 3, aynı işaret kelimesi art arda yok.

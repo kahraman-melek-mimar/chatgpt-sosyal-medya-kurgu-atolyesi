@@ -25,6 +25,7 @@ out/<isim>/final-dikey.mp4                                   ilan:render üretir
 | `npm run ilan:seslendir -- <isim> --kuru` | Ücretsiz okunuş kontrolü |
 | `npm run ilan:seslendir -- <isim>` | ElevenLabs → seslendirme.mp3 + altyazılar plana |
 | `npm run ilan:avatar -- <isim>` | HeyGen → avatar.mp4 |
+| `npm run ilan:gecis -- <isim>` | Geçiş kontrolü (gecisler.md kuralları; sahne sınırları + kareleri). Ajan: `gecis-editoru` |
 | `npm run ilan:render -- <isim> --kare=240` | Tek kare önizleme → out/<isim>/onizleme-240.png |
 | `npm run ilan:render -- <isim>` | Son video → out/<isim>/final-dikey.mp4 |
 
