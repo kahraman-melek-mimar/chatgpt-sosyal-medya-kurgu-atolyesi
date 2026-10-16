@@ -8,8 +8,8 @@
 
 ## 1. Kanal
 
-- **Kanal adı / handle:** Kahraman Melek — Coldwell Banker Parla Gayrimenkul (sosyal medya kullanıcı adı: belirtilmedi)
-- **Konu:** Gayrimenkul — satılık/kiralık ilan tanıtımları, danışman videoları (avatar dahil), kısa duyurular
+- **Kanal adı / handle:** Kahraman MELEK — Coldwell Banker Parla Gayrimenkul (sosyal medya kullanıcı adı: belirtilmedi)
+- **Konu:** Gayrimenkul — satılık/kiralık ilan tanıtımları, danışman videoları (sabit portre; avatar kullanılmaz), kısa duyurular
 - **İzleyici:** (belirtilmedi)
 - **Videonun dili / ekran yazılarının dili:** Türkçe
 - **Kanalın tek cümlelik vaadi:** "Doğru yatırım, doğru danışmanla mümkün." (kapanış sloganı)
@@ -30,7 +30,7 @@
 | Metin fontu | Poppins 500–600; vurgu: Cormorant Garamond italik | Garamond = Adobe Garamond Pro'nun açık alternatifi |
 | Etiket fontu (mono) | yok — etiketler Poppins, büyük harf, geniş harf aralığı | |
 | Köşe yuvarlaklığı | hafif (10–24 px) | |
-| Logo | `public/marka/cb-logo-cerceveli.png` | Çerçeveli logo yalnızca açık zeminde → beyaz rozet içinde |
+| Logo | `public/marka/cb-parla-logo.png` | Çerçeveli logo yalnızca açık zeminde → beyaz rozet içinde |
 | Portre | `public/marka/portre.png` | Kapanışta dairesel, beyaz halkalı |
 
 ## 4. Hareket ve tempo
@@ -53,7 +53,7 @@
 
 - **Hook tarzı:** ilk 1–1,5 sn'de en güçlü özelliği ima eden cümle + dış cephe + başlık kartı ("VİLLA 6+2", konum)
 - **Takip kartı:** yok — dikeyde "ara" çağrısı kapanış kartında
-- **Kapanış kartı:** lacivert zemin, CB logo rozeti, dairesel portre, **Kahraman Melek**, "GAYRİMENKUL DANIŞMANI ·
+- **Kapanış kartı:** lacivert zemin, CB logo rozeti, dairesel portre, **Kahraman MELEK**, "GAYRİMENKUL DANIŞMANI ·
   PARLA GAYRİMENKUL", "HEMEN ARAYIN" + **0542 361 77 91** (kartın en büyük ve en belirgin öğesi — kullanıcının özel
   talebi), Garamond italik slogan
 - **Bölüm etiketi stili:** yok (dikey); mülk sahnelerinde oda etiketi, bölüm arasında `ara-kart`
@@ -65,7 +65,7 @@
 - **Altyazı:** gömülü (IlanReel), kısa satırlar
 - **Format:** **Dikey 9:16, 1080×1920** (Instagram Reels + Story, TikTok, WhatsApp Durum) — varsayılan. Yatay/YouTube şimdilik yok.
 - **Teslim:** tek MP4 (H.264, SDR Rec.709, 30 fps, AAC) — üç platforma aynı dosya yüklenir; > 90 sn ise WhatsApp için ayrı kısa kesim
-- **Danışman bilgileri** (sorulmadan kullanılır, kullanıcı güncellemedikçe değişmez): Kahraman Melek ·
+- **Danışman bilgileri** (sorulmadan kullanılır, kullanıcı güncellemedikçe değişmez): Kahraman MELEK ·
   Gayrimenkul Danışmanı · 0542 361 77 91 · Parla Gayrimenkul (Coldwell Banker). E-posta gösterilmez.
 - **Mülk fotoğrafları:** üçüncü taraf filigranlı veya düşük çözünürlüklü görsel gelirse kullanmadan önce uyar ve onay al
 - **AI etiketi:** avatar/klon ses içeren videolarda yüklerken "AI ile oluşturuldu" etiketini hatırlat
@@ -74,3 +74,7 @@
 
 - Sevdiğim kurgular (link + neyi sevdiğim): → kareleri `marka/style-refs/` içine koy
 - Asla istemediğim şeyler: (belirtilmedi)
+
+## 9. Onaylı yerleşim — 16 Ekim 2026
+
+[Şablon ve ölçüler](sablonlar/README.md) bu marka için esas alınır. İsim her yerde **Kahraman MELEK**; unvan **Mimar · Ticari Gayrimenkul Danışmanı**. Parla Gayrimenkul logosu 4. hücrenin ortasında; imza ve telefon 20. hücrenin üst bölümünde sağa dayalıdır. Kapanıştaki gerçek sabit portre korunur.

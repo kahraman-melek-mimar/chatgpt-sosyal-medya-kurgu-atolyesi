@@ -86,7 +86,7 @@ export const ilanPlanSchema = z.object({
     telefon: z.string(),
     ofis: z.string().optional(), // "Parla Gayrimenkul"
     portre: z.string().default("marka/portre.png"),
-    logo: z.string().default("marka/cb-logo-cerceveli.png"),
+    logo: z.string().default("marka/cb-parla-logo.png"),
   }),
 });
 

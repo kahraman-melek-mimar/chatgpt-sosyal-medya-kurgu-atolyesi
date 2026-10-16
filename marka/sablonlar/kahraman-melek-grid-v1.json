@@ -1,0 +1,111 @@
+{
+  "version": 1,
+  "approved": "2026-10-16",
+  "owner": "Kahraman MELEK",
+  "canvas": {
+    "width": 1080,
+    "height": 1920
+  },
+  "grid": {
+    "rows": 5,
+    "columns": 4,
+    "numbering": "row-major, 1–20",
+    "cellWidth": 270,
+    "cellHeight": 384
+  },
+  "logo": {
+    "asset": "public/marka/cb-parla-logo.png",
+    "cell": 4,
+    "center": [
+      945,
+      192
+    ],
+    "badge": [
+      824,
+      104,
+      240,
+      176
+    ]
+  },
+  "headline": {
+    "box": [
+      60,
+      90,
+      670,
+      132
+    ],
+    "textOrigin": [
+      90,
+      96
+    ],
+    "fontSize": 92,
+    "weight": 800
+  },
+  "propertyTitle": {
+    "origin": [
+      64,
+      256
+    ],
+    "fontSize": 50
+  },
+  "propertyDetails": {
+    "origin": [
+      64,
+      334
+    ],
+    "fontSize": 42
+  },
+  "subtitles": {
+    "box": [
+      76,
+      1396,
+      484,
+      94
+    ],
+    "bottom": 1490,
+    "side": "left",
+    "note": "17. hücrenin üst sınırına yakın; imza ve telefonla çakışmaz"
+  },
+  "signature": {
+    "text": "Kahraman MELEK",
+    "anchor": "right-middle",
+    "position": [
+      1020,
+      1620
+    ],
+    "fontSize": 78,
+    "font": "Snell Roundhand",
+    "note": "20. hücrenin üst bölümünde; uzun imza sola komşu hücrelere taşabilir"
+  },
+  "phone": {
+    "text": "0542 361 77 91",
+    "anchor": "right-middle",
+    "position": [
+      1020,
+      1720
+    ],
+    "fontSize": 54
+  },
+  "closing": {
+    "portrait": "public/marka/portre.png",
+    "portraitCenter": [
+      540,
+      630
+    ],
+    "portraitDiameter": 300,
+    "signaturePosition": [
+      540,
+      868
+    ],
+    "signatureFontSize": 80,
+    "title": "MİMAR · TİCARİ GAYRİMENKUL DANIŞMANI",
+    "phonePosition": [
+      540,
+      1338
+    ],
+    "phoneFontSize": 64
+  },
+  "avatar": false,
+  "propertyStills": false,
+  "status": "Onaylı tasarım şablonu. Mevcut video yeniden render edilmedi; eski IlanReel bileşenleri bu yerleşime henüz uyarlanmadı."
+}

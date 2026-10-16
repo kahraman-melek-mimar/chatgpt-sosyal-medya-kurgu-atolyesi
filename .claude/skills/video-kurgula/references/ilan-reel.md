@@ -120,3 +120,7 @@ servislere ağ erişimine sahip değildir; betikler yalnız kullanıcının maki
 - **Doğrulama (Ekim 2026):** iki betik, resmi dokümanlardaki yanıt biçimlerini taklit eden yerel sahte sunucuyla uçtan
   uca test edildi (`ELEVENLABS_BASE_URL` / `HEYGEN_BASE_URL` ile yönlendirilebilir). Video ortasındaki avatar sahnesi
   doğru kareden oynadı (senkron kontrolü). Gerçek API ile ilk çalıştırmada yanıt alanlarını yine kontrol et.
+
+## Kahraman MELEK — güncel kullanıcı onayı
+
+16 Ekim 2026 onaylı `marka/sablonlar/README.md` ve JSON koordinatları yukarıdaki eski yerleşim tarifinden önceliklidir. Render öncesi bileşenleri bu şablona uyarla. Avatar kullanma; kapanışta gerçek sabit portreyi koru.

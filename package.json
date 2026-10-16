@@ -1,10 +1,10 @@
 {
-  "name": "sosyal-medya-kurgu-atolyesi",
+  "name": "chatgpt-sosyal-medya-kurgu-atolyesi",
   "version": "1.0.0",
   "description": "Kahraman MELEK — Sosyal Medya Kurgu Atölyesi: dikey Reels/TikTok/WhatsApp Durum emlak videolarını kodla kurgulama (Remotion + FFmpeg)",
   "repository": {
     "type": "git",
-    "url": "https://github.com/kahraman-melek-mimar/sosyal-medya-kurgu-atolyesi"
+    "url": "https://github.com/kahraman-melek-mimar/chatgpt-sosyal-medya-kurgu-atolyesi"
   },
   "license": "MIT",
   "private": true,
@@ -66,5 +66,5 @@
   "sideEffects": [
     "*.css"
   ],
-  "author": "Kahraman Melek"
+  "author": "Kahraman MELEK"
 }
